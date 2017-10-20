@@ -17,7 +17,9 @@ module RailsAdmin
 
         register_instance_option :controller do
           Proc.new do
-            defaults = model_config.defaults
+            defaults = model_config.defaults.map do |d|
+              object.send(d)
+            end
 
             respond_to do |format|
               format.html { render plain: defaults.to_json, :layout => false }
