@@ -7,8 +7,17 @@ module RailsAdmin
       class DefaultsAction < RailsAdmin::Config::Actions::Base
         RailsAdmin::Config::Actions.register(self)
 
+        register_instance_option :visible? do
+          false
+        end
+
+        register_instance_option :member do
+          true
+        end
+
         register_instance_option :controller do
           Proc.new do
+            binding.pry
             defaults = model_config.sample_section.defaults
 
             respond_to do |format|
