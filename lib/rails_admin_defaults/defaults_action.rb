@@ -17,8 +17,7 @@ module RailsAdmin
 
         register_instance_option :controller do
           Proc.new do
-            binding.pry
-            defaults = model_config.sample_section.defaults
+            defaults = model_config.defaults
 
             respond_to do |format|
               format.js { render defaults.to_json, :layout => false }
