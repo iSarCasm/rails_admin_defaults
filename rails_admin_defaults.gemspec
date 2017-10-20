@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = RailsAdminDefaults::VERSION
   s.authors     = ["SarCasm"]
   s.email       = ["sarcasm008@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of RailsAdminDefaults."
-  s.description = "TODO: Description of RailsAdminDefaults."
+  s.homepage    = "https://github.com/iSarCasm/rails_admin_defaults"
+  s.summary     = "Implements defaults for Rails Admin"
+  s.description = "Lets bring up some default values from one model to other"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
