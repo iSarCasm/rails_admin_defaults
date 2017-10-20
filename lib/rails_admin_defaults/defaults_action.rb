@@ -20,7 +20,8 @@ module RailsAdmin
             defaults = model_config.defaults
 
             respond_to do |format|
-              format.js { render defaults.to_json, :layout => false }
+              format.html { render defaults.to_json, :layout => false }
+              format.js   { render defaults.to_json, :layout => false }
             end
           end
         end
