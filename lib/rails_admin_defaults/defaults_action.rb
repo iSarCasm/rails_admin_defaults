@@ -22,7 +22,6 @@ module RailsAdmin
             end
 
             respond_to do |format|
-              format.html { render plain: defaults.to_json, :layout => false }
               format.js   { render plain: defaults.to_json, :layout => false }
               format.json { render plain: defaults.to_json, :layout => false }
             end
