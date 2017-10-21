@@ -17,8 +17,8 @@ module RailsAdmin
 
         register_instance_option :controller do
           Proc.new do
-            defaults = model_config.defaults.map do |d|
-              object.send(d)
+            defaults = model_config.defaults.each.with_object({}) do |d, h|
+              h[d] = object.send(d)
             end
 
             respond_to do |format|
