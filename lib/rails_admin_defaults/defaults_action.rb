@@ -32,7 +32,7 @@ module RailsAdmin
                   end
                 end
                 h[d] = { data: obj }
-              elsif !obj.nil?  # Object
+              elsif !obj.nil? && obj.try(:title)  # Object
                 h[d] = { data: obj, title: obj.title }
               else
                 h[d] = { data: obj }
