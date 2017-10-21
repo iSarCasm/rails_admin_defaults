@@ -18,7 +18,14 @@ module RailsAdmin
         register_instance_option :controller do
           Proc.new do
             defaults = model_config.defaults.each.with_object({}) do |d, h|
-              h[d] = object.send(d)
+              obj = object.send(d)
+              if obj.is_a? String
+                h[d] = { type: :string, data: obj }
+              elsif obj.try(:size)  # Array or AR Assoc
+                h[d] = { type: :array, data: obj }
+              else # Object
+                h[d] = { type: :object, data: obj, title: obj.title }
+              end
             end
 
             respond_to do |format|
