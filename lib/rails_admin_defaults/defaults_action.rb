@@ -19,14 +19,26 @@ module RailsAdmin
           Proc.new do
             defaults = model_config.defaults.each.with_object({}) do |d, h|
               obj = object.send(d)
-              if obj.is_a? String
-                h[d] = { type: :string, data: obj }
-              elsif obj.try(:size)  # Array or AR Assoc
-                h[d] = { type: :array, data: obj }
-              else # Object
-                h[d] = { type: :object, data: obj, title: obj.title }
+              if obj.try(:size)  # Array or AR Assoc
+                obj = obj.to_a.map do |rec|
+                  rec.attributes.each.with_object({}) do |(k, v), h|
+                    if k =~ /_id$/ && v
+                      klass = k[0...-3].split('_').join(' ').titleize.gsub(' ','').constantize
+                      found = klass.find(v)
+                      h[k] = { data: found, title: found.title }
+                    else
+                      h[k] = v
+                    end
+                  end
+                end
+                h[d] = { data: obj }
+              elsif !obj.nil?  # Object
+                h[d] = { data: obj, title: obj.title }
+              else
+                h[d] = { data: obj }
               end
             end
+
 
             respond_to do |format|
               format.js   { render plain: defaults.to_json, :layout => false }
