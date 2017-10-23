@@ -1,8 +1,8 @@
-# RailsAdminDefaults
+= RailsAdminDefaults
 
 Allows setting up default values from one models to other.
 
-#3 Setup
+= Setup
 1) Gemfile:
 ```
 gem 'rails_admin_defaults', git: 'https://github.com/iSarCasm/rails_admin_defaults'
@@ -28,7 +28,7 @@ end
 //= require jquery-defaults
 ```
 
-## Example
+= Example
 Given the Tour model:
 ```
 # == Schema Information
