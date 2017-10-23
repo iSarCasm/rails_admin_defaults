@@ -42,6 +42,9 @@ $(document).ready(function() {
         } else if(type === 'null') {
           populate_select_with_default(current + '_' + name + '_id', {id: '', text: ''})
           clear_association(name);
+          elem = $('#'+current+'_'+name).first()
+          populate_string(elem, '')
+          populate_string(elem, false)
         }
       })
     });
