@@ -14,6 +14,9 @@ $(document).ready(function() {
   }
 
   $(document).on('change', '[data-has-defaults]', function(val) {
+    if (!inNew())
+      return;
+
     defs = $(this).val();
     s = $('[data-has-defaults]').first()[0].name.split('[')
     to = s[0]
@@ -22,6 +25,10 @@ $(document).ready(function() {
       get_defaults(from, defs, to)
     }
   });
+
+  function inNew() {
+    return $('h1').first().text().substr(0,3) === "New";
+  }
 
   function get_defaults(model, id, current) {
     $.get("/admin/"+model+"/"+id+"/defaults.json", function(data, status){
