@@ -32,16 +32,17 @@ $(document).ready(function() {
 
   function get_defaults(model, id, current) {
     $.get("/admin/"+model+"/"+id+"/defaults.json", function(data, status){
-      // console.log(data)
+      console.log(data)
       $.each(data, function(key, value) {
         name = key
         data = value.data
         title = value.title
         type = define_type(data)
-        console.log(type)
+
         if(type === 'object') {
           populate_select_with_default(current + '_' + name + '_id', {id: data.id, text: title})
         } else if(type === 'array') {
+          add_to_multiselect(current, name, data)
           populate_association_with_defaults(current, name, data)
         } else if(type === 'string') {
           elem = $('#'+current+'_'+name).first()
@@ -98,6 +99,26 @@ $(document).ready(function() {
           }
         }
       });
+    }
+  }
+
+  function add_to_multiselect(from, name, data) {
+    var field_name = from + '_' + singularFieldName(name) + '_ids_field';
+    $('#'+field_name).find('.ra-multiselect-item-remove-all').click()
+    for(var i = 0; i < data.length; i++) {
+      console.log(field_name)
+      console.log(data[i].name)
+      $('#'+field_name).find('.ra-multiselect-left').find('option[title="' + data[i].name + '"]').prop('selected', true)
+    }
+    $('#'+field_name).find('.ra-multiselect-center .ra-multiselect-item-add').click()
+  }
+
+  function singularFieldName(original) {
+    console.log('might be plural to singular problem');
+    if (original.slice(-3) === 'ies') {
+      return original.slice(0, -3) + 'y';
+    } else if (original.slice(-1) === 's') {
+      return original.slice(0, -1);
     }
   }
 
