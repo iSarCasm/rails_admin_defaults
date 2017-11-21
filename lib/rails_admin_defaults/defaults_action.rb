@@ -19,7 +19,7 @@ module RailsAdmin
           Proc.new do
             defaults = model_config.defaults.each.with_object({}) do |d, h|
               obj = object.send(d)
-              if obj.try(:size)  # Array or AR Assoc
+              if obj.try(:size) && obj.class != Fixnum # Array or AR Assoc
                 obj = obj.to_a.map do |rec|
                   rec.attributes.each.with_object({}) do |(k, v), h|
                     if k =~ /_id$/ && v
